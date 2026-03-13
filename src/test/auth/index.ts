@@ -1,10 +1,17 @@
 import instance from "../../client/api.ts";
 import { LoginRequest, LoginResponse, ResponseWrapper } from "../../type/index.ts";
+import { TokentStore } from "../../client/api.ts";
 
 async function login(request: LoginRequest): Promise<ResponseWrapper<LoginResponse> | null> {
     try {
         const response = await instance.post("/auth/login", request);
         const data = response.data as ResponseWrapper<LoginResponse>;
+
+        // After successful login, store the token for future requests
+        if (data.data.token) {
+            TokentStore.set(data.data.token); // <- Store token for future use
+            console.log("✅ Tokent saved");
+        }
 
         // Check response data exists
         if (!data) {

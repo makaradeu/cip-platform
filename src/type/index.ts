@@ -23,6 +23,20 @@ export type LoginResponse = {
     requiredAction: string | null;
 };
 
+// Request
+export type ActivityStatusReq = {
+  status: string;
+};
+
+// Single status item in response
+export type ActivityStatusItem = {
+  status: string;
+  description: string;
+};
+
+// Response
+export type ActivityStatusRes = ActivityStatusItem[];
+
 export type ResponseWrapper<T> = {
     status: {
         code: number;
